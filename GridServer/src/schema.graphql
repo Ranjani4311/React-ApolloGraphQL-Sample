@@ -1,0 +1,80 @@
+scalar JSON
+
+type Expense {
+  expenseId: ID!
+  employeeName: String!
+  employeeEmail: String!
+  employeeAvatarUrl: String
+  department: String!
+  category: String!
+  description: String
+  receiptUrl: String
+  amount: Float!
+  taxPct: Float!
+  totalAmount: Float!
+  expenseDate: String!
+  paymentMethod: String!
+  currency: String!
+  reimbursementStatus: String!
+  isPolicyCompliant: Boolean!
+  tags: [String!]!
+}
+
+type ReturnType {
+  result: [Expense!]!
+  count: Int!
+}
+
+input ExpenseInput {
+  expenseId: ID
+  employeeName: String
+  employeeEmail: String
+  employeeAvatarUrl: String
+  department: String
+  category: String
+  description: String
+  receiptUrl: String
+  amount: Float
+  taxPct: Float
+  totalAmount: Float
+  expenseDate: String
+  paymentMethod: String
+  currency: String
+  reimbursementStatus: String
+  isPolicyCompliant: Boolean
+  tags: [String!]
+}
+
+input DataManagerInput {
+  skip: Int
+  take: Int
+  requiresCounts: Boolean
+  sorted: [SortInput!]
+  filtered: [FilterInput!]
+  where: JSON
+  search: String
+  params: JSON
+}
+
+input SortInput {
+  name: String!
+  direction: String!
+}
+
+input FilterInput {
+  field: String!
+  operator: String!
+  value: String
+  predicate: String
+  matchCase: Boolean
+}
+
+type Query {
+  getExpenses(datamanager: DataManagerInput): ReturnType!
+}
+
+type Mutation {
+  addExpense(value: ExpenseInput!): Expense!
+  updateExpense(key: ID!, keyColumn: String, value: ExpenseInput!): Expense!
+  deleteProduct(key: String!, keyColumn: String): Expense!
+}
