@@ -84,10 +84,8 @@ export const resolvers = {
       performSearching(query, datamanager);
       performSorting(query, datamanager);
 
-      //data = new DataManager(data).executeLocal(query) as ExpenseRecord[];
       const count = data.length;
 
-      //data = performPaging(data, datamanager);
       if (datamanager.take !== undefined) {
         const skip = datamanager.skip || 0;
         const take = datamanager.take;
@@ -95,7 +93,8 @@ export const resolvers = {
         query.page(skip / take + 1, take);
        
       }
-       data = new DataManager(data).executeLocal(query) as ExpenseRecord[];;
+      
+      data = new DataManager(data).executeLocal(query) as ExpenseRecord[];;
 
       return { result: data, count };
     },
