@@ -72,21 +72,6 @@ function performSorting(query: Query, datamanager: any) {
   }
 }
 
-function performPaging(data: ExpenseRecord[], datamanager: any): ExpenseRecord[] {
-  if (typeof datamanager?.skip === 'number' && typeof datamanager?.take === 'number') {
-    const pageQuery = new Query().page(
-      datamanager.skip / datamanager.take + 1,
-      datamanager.take
-    );
-    return new DataManager(data).executeLocal(pageQuery) as ExpenseRecord[];
-  }
-  if (datamanager?.take) {
-    const pageQuery = new Query().page(1, datamanager.take);
-    return new DataManager(data).executeLocal(pageQuery) as ExpenseRecord[];
-  }
-  return data;
-}
-
 // ---------- Resolvers ----------
 export const resolvers = {
   JSON: GraphQLJSON,
@@ -116,7 +101,6 @@ export const resolvers = {
     },
   },
   Mutation: {
-    
     /**
      * Create a new expense.
      *
@@ -128,8 +112,7 @@ export const resolvers = {
       expenses.push(value);
       return value;
     },
-    
-    
+     
     /**
      * Update an existing expense by a dynamic key column.
      *
