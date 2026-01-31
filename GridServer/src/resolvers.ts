@@ -99,17 +99,18 @@ export const resolvers = {
       performSearching(query, datamanager);
       performSorting(query, datamanager);
 
-      data = new DataManager(data).executeLocal(query) as ExpenseRecord[];
+      //data = new DataManager(data).executeLocal(query) as ExpenseRecord[];
       const count = data.length;
 
-      data = performPaging(data, datamanager);
-      // if (datamanager.take !== undefined) {
-      //   const skip = datamanager.skip || 0;
-      //   const take = datamanager.take;
+      //data = performPaging(data, datamanager);
+      if (datamanager.take !== undefined) {
+        const skip = datamanager.skip || 0;
+        const take = datamanager.take;
 
-      //   query.page(skip / take + 1, take);
-      //   result = new DataManager(data).executeLocal(query);
-      // }
+        query.page(skip / take + 1, take);
+       
+      }
+       data = new DataManager(data).executeLocal(query) as ExpenseRecord[];;
 
       return { result: data, count };
     },
@@ -143,7 +144,7 @@ export const resolvers = {
 
       // 1. Find the expense dynamically using the given key column
       const expense = expenses.find(
-        (e: ExpenseRecord) => String(e[keyColumn]) === String(key)
+        (e: ExpenseRecord|any) => String(e[keyColumn]) === String(key)
       );
 
       if (!expense) throw new Error("Expense not found");
@@ -155,9 +156,7 @@ export const resolvers = {
       return expense;
     },
     
-
-    
-  /**
+    /**
      * Delete an existing expense by a dynamic key column.
      *
      * Removes the matched expense from the in-memory list and returns the removed object.
@@ -167,18 +166,12 @@ export const resolvers = {
      * @param args.keyColumn - The field name to match against (defaults to "expenseId").
      * @returns The deleted expense object.
    */
-    deleteExpense: (_parent: unknown,{ key, keyColumn = "expenseId" }: any) => {
-      // Find index using dynamic key column
-      const index = expenses.findIndex(
-        (e: ExpenseRecord) => String(e[keyColumn]) === String(key)
-      );
-
-      if (index === -1) throw new Error("Expense not found");
-
-      // Remove item
-      const removed = expenses.splice(index, 1)[0];
-
-      return removed; // Return deleted record (common GraphQL pattern)
-    },
+   deleteExpense: (_parent: any, { key, keyColumn = 'expenseId' }: any) => {
+      const idx = expenses.findIndex((e: ExpenseRecord|any) => String(e[keyColumn]) === String(key));
+      if (idx === -1) throw new Error('Expense not found');
+      const [removed] = expenses.splice(idx, 1);
+      // Return the Expense directly to match `Expense!`
+      return removed;
+    }
   },
 };

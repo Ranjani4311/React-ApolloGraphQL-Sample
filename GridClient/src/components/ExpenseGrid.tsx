@@ -102,8 +102,10 @@ const ExpenseGrid: React.FC = () => {
             `;
           }
           return `
-            mutation deleteExpense($key: ID!, $keyColumn: String, $value: ExpenseInput) {
-              deleteExpense(key: $key, keyColumn: $keyColumn, value: $value)
+            mutation RemoveDeleteExpense($key: String!, $keyColumn: String) {
+              deleteExpense(key: $key, keyColumn: $keyColumn){
+              expenseId,employeeName,employeeEmail,employeeAvatarUrl,department,category,description,receiptUrl,amount,taxPct,totalAmount,expenseDate,paymentMethod,currency,reimbursementStatus,isPolicyCompliant,tags   
+              }
             }
           `;
         },
@@ -165,6 +167,7 @@ const ExpenseGrid: React.FC = () => {
 
 
   const actionBegin = useCallback((args: SaveEventArgs) => {
+    debugger
     
     if (args.requestType !== "save" || !(args as SaveEventArgs).form) return;
 

@@ -2,22 +2,22 @@ scalar JSON
 
 type Expense {
   expenseId: ID!
-  employeeName: String!
-  employeeEmail: String!
+  employeeName: String
+  employeeEmail: String
   employeeAvatarUrl: String
-  department: String!
-  category: String!
+  department: String
+  category: String
   description: String
   receiptUrl: String
-  amount: Float!
-  taxPct: Float!
-  totalAmount: Float!
-  expenseDate: String!
-  paymentMethod: String!
+  amount: Float
+  taxPct: Float
+  totalAmount: Float
+  expenseDate: String
+  paymentMethod: String
   currency: String!
-  reimbursementStatus: String!
-  isPolicyCompliant: Boolean!
-  tags: [String!]!
+  reimbursementStatus: String
+  isPolicyCompliant: Boolean
+  tags: [String!]
 }
 
 type ReturnType {
@@ -76,5 +76,5 @@ type Query {
 type Mutation {
   addExpense(value: ExpenseInput!): Expense!
   updateExpense(key: ID!, keyColumn: String, value: ExpenseInput!): Expense!
-  deleteProduct(key: String!, keyColumn: String): Expense!
+  deleteExpense(key: String!, keyColumn: String): Expense!
 }
