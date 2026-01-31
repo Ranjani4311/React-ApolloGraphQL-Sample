@@ -121,13 +121,13 @@ The [user guide](https://ej2.syncfusion.com/react/documentation/grid/connecting-
 **Q: Why can't I just return all data and set count = result.length?**
 **A:** Paging would be completely broken, the grid would think there’s only one page because count equals the visible slice, not the total.
 
-**Q: Why do mutations need to return full objects?**\
+**Q: Why do mutations need to return full objects?**
 **A:** So the grid can immediately update the UI without making an additional GET request. This keeps interactions snappy and reduces load.
 
-**Q: Does this support virtual scrolling / infinite scroll?**\
+**Q: Does this support virtual scrolling / infinite scroll?**
 **A:** Yes. When enableVirtualization = true and the server always returns correct count for the current filter/sort. The grid fetches windows on demand.
 
-**Q: Can I use Apollo Client caching with GraphQLAdaptor?**\
+**Q: Can I use Apollo Client caching with GraphQLAdaptor?**
 **A:** Not directly. For Apollo features (cache, links, auth), use a custom UrlAdaptor wired to Apollo Client instead of GraphQLAdaptor.
 
 ## Common Mistakes & How to Fix Them
