@@ -36,7 +36,6 @@ const ExpenseGrid: React.FC = () => {
   const expensesService = useMemo(() => {
     return new DataManager({
       url: "http://localhost:4000/",
-      crossDomain:true,
       adaptor: new GraphQLAdaptor({
         response: { result: "getExpenses.result", count: "getExpenses.count" },
         query: `
@@ -167,8 +166,6 @@ const ExpenseGrid: React.FC = () => {
 
 
   const actionBegin = useCallback((args: SaveEventArgs) => {
-    debugger
-    
     if (args.requestType !== "save" || !(args as SaveEventArgs).form) return;
 
     const form = (args as SaveEventArgs).form as HTMLFormElement;

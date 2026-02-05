@@ -1,5 +1,6 @@
 scalar JSON
 
+# Represents a single expense record in the system.
 type Expense {
   expenseId: ID!
   employeeName: String
@@ -20,11 +21,13 @@ type Expense {
   tags: [String!]
 }
 
+# Wrapper for paginated expense results.
 type ReturnType {
   result: [Expense!]!
   count: Int!
 }
 
+# Input payload for creating or partially updating an expense
 input ExpenseInput {
   expenseId: ID
   employeeName: String
@@ -45,6 +48,7 @@ input ExpenseInput {
   tags: [String!]
 }
 
+# Syncfusion DataManager-compatible state for server-side processing
 input DataManagerInput {
   skip: Int
   take: Int
@@ -56,11 +60,13 @@ input DataManagerInput {
   params: JSON
 }
 
+# Sort descriptor used by DataManager requests.
 input SortInput {
   name: String!
   direction: String!
 }
 
+# Filter descriptor used by DataManager requests.
 input FilterInput {
   field: String!
   operator: String!
@@ -69,10 +75,12 @@ input FilterInput {
   matchCase: Boolean
 }
 
+# Read operations for expenses.
 type Query {
   getExpenses(datamanager: DataManagerInput): ReturnType!
 }
 
+# Write operations for expenses.
 type Mutation {
   addExpense(value: ExpenseInput!): Expense!
   updateExpense(key: ID!, keyColumn: String, value: ExpenseInput!): Expense!

@@ -136,23 +136,3 @@ function generateExpenses(count = 200): ExpenseRecord[] {
 }
 
 export const expenses: ExpenseRecord[] = generateExpenses(1500);
-
-export function addExpense(value: ExpenseInput): ExpenseRecord {
-  const expense: ExpenseRecord = { expenseId: uuid(), ...value };
-  expenses.push(expense);
-  return expense;
-}
-
-export function updateExpense(key: string, value: Partial<ExpenseRecord>): ExpenseRecord | null {
-  const index = expenses.findIndex((item) => item.expenseId === key);
-  if (index === -1) return null;
-  expenses[index] = { ...expenses[index], ...value };
-  return expenses[index];
-}
-
-export function removeExpense(key: string): boolean {
-  const index = expenses.findIndex((item) => item.expenseId === key);
-  if (index === -1) return false;
-  expenses.splice(index, 1);
-  return true;
-}
